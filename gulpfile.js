@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
-    gutil = require('gulp-util');
+    gutil = require('gulp-util'),
+    coffee = require('gulp-coffee');
 
 // ALL THE METHODS SND PLUGINS THAT COME WITH GULP WILL VE ASSIGNED TO THIS VARIABLE
 
@@ -10,4 +11,17 @@ var gulp = require('gulp'),
 
 gulp.task('log', function() {
   gutil.log('Workflows are awesome');
+});
+
+var coffeeSources = ['components/coffee/tagline.coffee'];
+
+// ONE OF THE CORE PRINCIPLES BEHIND GULP IS THAT YOU TAKE A PIECE OF INFORMATION AND PASS THAT THROUGH A PLUGIN/FILTER
+// AND THEN THE OUTPUT OF THAT PLUGIN BECOMES THE INPUT OF A NEW PLUGIN.
+// THE METHOD USED FOR THIS IS CALLED PIPE, AND IT IS PART OF WHAT MAKES GULP EASY TO UNDERSTAND AND USE
+
+gulp.task('coffee', function() {
+  gulp.src(coffeeSources)
+    .pipe(coffee({ bare: true })
+      .on('error', gutil.log))
+    .pipe(gulp.dest('components/scripts'))
 });
