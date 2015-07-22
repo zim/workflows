@@ -2,6 +2,7 @@ var gulp = require('gulp'),
     gutil = require('gulp-util'),
     coffee = require('gulp-coffee'),
     browserify = require('gulp-browserify'),
+    compass = require('gulp-compass'),
     concat = require('gulp-concat');
 
 // ALL THE METHODS SND PLUGINS THAT COME WITH GULP WILL VE ASSIGNED TO THIS VARIABLE
@@ -24,6 +25,8 @@ var jsSources = [
   'components/scripts/template.js'
 ];
 
+var sassSources = ['components/sass/style.scss'];
+
 // ONE OF THE CORE PRINCIPLES BEHIND GULP IS THAT YOU TAKE A PIECE OF INFORMATION AND PASS THAT THROUGH A PLUGIN/FILTER
 // AND THEN THE OUTPUT OF THAT PLUGIN BECOMES THE INPUT OF A NEW PLUGIN.
 // THE METHOD USED FOR THIS IS CALLED PIPE, AND IT IS PART OF WHAT MAKES GULP EASY TO UNDERSTAND AND USE
@@ -40,4 +43,15 @@ gulp.task('js', function() {
   .pipe(concat('script.js'))
   .pipe(browserify())
   .pipe(gulp.dest('builds/development/js'))
+});
+
+gulp.task('compass', function() {
+  gulp.src(sassSources)
+  .pipe(compass({
+    sass: 'components/sass',
+    image: 'builds/development/images',
+    style: 'expanded'
+  }))
+  .on('error', gutil.log)
+  .pipe(gulp.dest('builds/development/css'))
 });
