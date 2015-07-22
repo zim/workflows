@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
     gutil = require('gulp-util'),
     coffee = require('gulp-coffee'),
+    browserify = require('gulp-browserify'),
     concat = require('gulp-concat');
 
 // ALL THE METHODS SND PLUGINS THAT COME WITH GULP WILL VE ASSIGNED TO THIS VARIABLE
@@ -37,5 +38,6 @@ gulp.task('coffee', function() {
 gulp.task('js', function() {
   gulp.src(jsSources)
   .pipe(concat('script.js'))
+  .pipe(browserify())
   .pipe(gulp.dest('builds/development/js'))
 });
