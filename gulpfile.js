@@ -27,6 +27,9 @@ var jsSources = [
 ];
 
 var sassSources = ['components/sass/style.scss'];
+var htmlSources = ['builds/development/*.html'];
+var jsonSources = ['builds/development/js/*.json'];
+
 
 // ONE OF THE CORE PRINCIPLES BEHIND GULP IS THAT YOU TAKE A PIECE OF INFORMATION AND PASS THAT THROUGH A PLUGIN/FILTER
 // AND THEN THE OUTPUT OF THAT PLUGIN BECOMES THE INPUT OF A NEW PLUGIN.
@@ -63,6 +66,8 @@ gulp.task('watch', function() {
   gulp.watch(coffeeSources, ['coffee']);
   gulp.watch(jsSources, ['js']);
   gulp.watch('components/sass/*.scss', ['compass']);
+  gulp.watch(htmlSources, ['html']);
+  gulp.watch(jsonSources, ['json']);
 });
 
 gulp.task('connect', function() {
@@ -72,6 +77,16 @@ gulp.task('connect', function() {
   })
 });
 
-gulp.task('default', ['coffee', 'js', 'compass', 'connect', 'watch'], function() {
+gulp.task('html', function() {
+  gulp.src(htmlSources)
+  .pipe(connect.reload())
+});
+
+gulp.task('json', function() {
+  gulp.src(jsonSources)
+  .pipe(connect.reload())
+});
+
+gulp.task('default', ['html','json', 'coffee', 'js', 'compass', 'connect', 'watch'], function() {
 
 });
