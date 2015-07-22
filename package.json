@@ -1,0 +1,11 @@
+{
+  "name": "workflow",
+  "version": "1.0.0",
+  "description": "A project to showcase workflow",
+  "repository": {
+    "type": "git",
+    "url": "?.git"
+  },
+  "author": "Zim Segal",
+  "license": "ISC"
+}
